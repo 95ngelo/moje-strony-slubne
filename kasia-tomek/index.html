@@ -1,14 +1,339 @@
 <!DOCTYPE html>
-<html>
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
-    <title>Przekierowanie...</title>
-    <meta http-equiv="refresh" content="0; url=../panel.html?names=Kasia%20i%20Tomek&id=A1B2C" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zapraszamy na nasz ślub!</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Zmienne kolorystyczne i bazowe ustawienia */
+        :root {
+            --primary-color: #d4af37; /* Złoty ślubny / Szampański */
+            --bg-color: #fbfaf8; /* Jasny, ciepły beż */
+            --text-color: #4a4a4a;
+            --font-main: 'Lato', sans-serif;
+            --font-accent: 'Playfair Display', serif;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 {
+            font-family: var(--font-accent);
+            font-weight: normal;
+            color: #222;
+        }
+
+        /* --- Sekcja Powitalna (Hero) --- */
+        .hero {
+            height: 100vh;
+            /* TUTAJ MOŻESZ PODMIENIĆ LINK NA WŁASNE ZDJĘCIE */
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content { padding: 20px; }
+
+        .hero h1 {
+            font-size: 5rem;
+            font-style: italic;
+            margin: 10px 0;
+            color: #fff;
+        }
+
+        .hero p.date {
+            font-size: 1.5rem;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+        }
+
+        /* --- Odliczanie --- */
+        .countdown-wrapper {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 40px;
+        }
+
+        .time-box {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(5px);
+            padding: 15px 20px;
+            border-radius: 8px;
+            min-width: 90px;
+            border: 1px solid rgba(255,255,255,0.3);
+        }
+
+        .time-box span {
+            display: block;
+            font-size: 2.5rem;
+            font-family: var(--font-accent);
+        }
+
+        .time-box div {
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* --- Ogólne ustawienia sekcji --- */
+        section {
+            padding: 100px 20px;
+            max-width: 1000px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .section-title {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .section-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+            color: #777;
+        }
+
+        /* --- Szczegóły Ślubu --- */
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .detail-card {
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+        }
+
+        .detail-card h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .detail-card p { margin-bottom: 10px; }
+
+        /* --- Formularz RSVP --- */
+        .rsvp-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            text-align: left;
+        }
+
+        .form-group { margin-bottom: 20px; }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 700;
+        }
+
+        .form-group input, .form-group select, .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-family: var(--font-main);
+            font-size: 1rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 15px;
+            font-size: 1.1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            transition: background-color 0.3s ease;
+        }
+
+        .submit-btn:hover { background-color: #b5952f; }
+
+        /* --- Sekcja Przesyłania Zdjęć (iframe Google) --- */
+        .upload-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .upload-section iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            min-height: 600px;
+        }
+
+        /* --- Stopka --- */
+        footer {
+            background-color: #222;
+            color: #fff;
+            text-align: center;
+            padding: 40px 20px;
+            font-family: var(--font-accent);
+        }
+        
+        footer h2 { color: #fff; margin-bottom: 10px;}
+
+        /* --- Responsywność dla telefonów --- */
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 3.5rem; }
+            .details-grid { grid-template-columns: 1fr; }
+            .countdown-wrapper { flex-wrap: wrap; }
+            .hero p.date { font-size: 1.2rem; }
+        }
+    </style>
 </head>
 <body>
+
+    <header class="hero">
+        <div class="hero-content">
+            <p style="font-size: 1.2rem; letter-spacing: 2px;">Pobieramy się!</p>
+            
+            <h1 id="wedding-title">Anna & Piotr</h1>
+            
+            <p class="date">25 Sierpnia 2026</p>
+            
+            <div class="countdown-wrapper" id="countdown">
+                <div class="time-box">
+                    <span id="days">00</span>
+                    <div>Dni</div>
+                </div>
+                <div class="time-box">
+                    <span id="hours">00</span>
+                    <div>Godzin</div>
+                </div>
+                <div class="time-box">
+                    <span id="minutes">00</span>
+                    <div>Minut</div>
+                </div>
+                <div class="time-box">
+                    <span id="seconds">00</span>
+                    <div>Sekund</div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <section id="szczegoly">
+        <h2 class="section-title">Kiedy & Gdzie</h2>
+        <p class="section-subtitle">Oto najważniejsze informacje o naszym wielkim dniu.</p>
+        
+        <div class="details-grid">
+            <div class="detail-card">
+                <h3>Ceremonia</h3>
+                <p><strong>Godzina:</strong> 15:00</p>
+                <p><strong>Miejsce:</strong> Kościół św. Anny</p>
+                <p>Krakowskie Przedmieście 68, Warszawa</p>
+            </div>
+            <div class="detail-card">
+                <h3>Wesele</h3>
+                <p><strong>Godzina:</strong> 17:00</p>
+                <p><strong>Miejsce:</strong> Sala Bankietowa "Złoty Sen"</p>
+                <p>ul. Wierzbowa 10, Warszawa</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="zdjecia" style="background-color: #fff;">
+        <h2 class="section-title">Wspólna Galeria</h2>
+        <p class="section-subtitle">Zrobiłeś piękne zdjęcia lub filmy? Prześlij je do naszej wspólnej galerii!</p>
+        
+        <div class="upload-section">
+            <iframe src="https://docs.google.com/forms/d/e/TWOJ_ID_FORMULARZA/viewform?embedded=true">Ładowanie formularza...</iframe>
+        </div>
+    </section>
+
+    <section id="rsvp" style="background-color: #f4f1eb;">
+        <h2 class="section-title">RSVP</h2>
+        <p class="section-subtitle">Prosimy o potwierdzenie przybycia do 1 sierpnia 2026 r.</p>
+        
+        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Dziękujemy za potwierdzenie! W prawdziwym projekcie te dane trafią na Twój e-mail.');">
+            <div class="form-group">
+                <label for="name">Imię i Nazwisko gościa</label>
+                <input type="text" id="name" placeholder="Wpisz swoje imię i nazwisko" required>
+            </div>
+            <div class="form-group">
+                <label for="attendance">Czy będziesz z nami?</label>
+                <select id="attendance" required>
+                    <option value="" disabled selected>Wybierz opcję...</option>
+                    <option value="yes">Z radością przybędę</option>
+                    <option value="no">Niestety, nie mogę być z Wami</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="diet">Dieta specjalna / Alergie</label>
+                <textarea id="diet" rows="3" placeholder="Zostaw puste, jeśli brak uwag..."></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Wyślij potwierdzenie</button>
+        </form>
+    </section>
+
+    <footer>
+        <h2>Nie możemy się doczekać!</h2>
+        <p id="footer-names">Anna & Piotr</p>
+    </footer>
+
     <script>
-        // ZMIANA: Dodane ../ przed panel.html
-        window.location.href = "../panel.html?names=Kasia%20i%20Tomek&id=A1B2C";
+        // --- 1. DYNAMICZNE IMIONA Z LINKU ---
+        const params = new URLSearchParams(window.location.search);
+        const names = params.get('names');
+        
+        if(names) {
+            // Zamienia domyślne "Anna & Piotr" na imiona z wygenerowanego linku
+            document.getElementById('wedding-title').innerText = names;
+            document.getElementById('footer-names').innerText = names;
+            document.title = `Wesele - ${names}`;
+        }
+
+        // --- 2. ODLICZANIE CZASU ---
+        // Ustaw datę swojego ślubu (Rok, Miesiąc, Dzień, Godzina, Minuta)
+        // UWAGA: W JavaScript miesiące liczymy od 0 (0 = Styczeń, 7 = Sierpień)
+        const weddingDate = new Date(2026, 7, 25, 15, 0, 0).getTime();
+
+        const updateCountdown = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance < 0) {
+                clearInterval(updateCountdown);
+                document.getElementById("countdown").innerHTML = "<h2>To już dziś!</h2>";
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerText = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerText = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerText = seconds.toString().padStart(2, '0');
+        }, 1000);
     </script>
 </body>
 </html>
