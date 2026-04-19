@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panel Administratora</title>
+    <style>
+        body { font-family: Arial, sans-serif; background: #f4f7f6; padding: 40px; }
+        .admin-container { max-width: 600px; margin: 0 auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); }
+        h2 { border-bottom: 2px solid #3498db; padding-bottom: 10px; color: #2c3e50; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input { width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; }
+        button { background: #3498db; color: white; border: none; padding: 12px 20px; font-size: 16px; border-radius: 5px; cursor: pointer; width: 100%; }
+        button:hover { background: #2980b9; }
+        .result { margin-top: 20px; padding: 15px; background: #e8f8f5; border: 1px solid #1abc9c; border-radius: 5px; display: none; }
+        .result a { font-weight: bold; color: #16a085; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <h2>Kreator Strony Ślubnej</h2>
+        <p>Wprowadź dane, aby wygenerować unikalny link dla klienta.</p>
+        
+        <div class="form-group">
+            <label for="coupleNames">Imiona Pary Młodej (np. Anna & Piotr)</label>
+            <input type="text" id="coupleNames" placeholder="Anna & Piotr" required>
+        </div>
+        
+        <button onclick="generateLink()">Generuj link do panelu</button>
+
+        <div id="resultBox" class="result">
+            <p>Oto gotowy link dla Pary Młodej:</p>
+            <a id="generatedLink" href="#" target="_blank"></a>
+            <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">(Kliknij link, aby zobaczyć efekt)</p>
+        </div>
+    </div>
+
+    <script>
+        function generateLink() {
+            const names = document.getElementById('coupleNames').value;
+            if (!names) {
+                alert("Proszę wpisać imiona!");
+                return;
+            }
+
+            // Generujemy losowy identyfikator sesji (np. 8Xk2P)
+            const randomID = Math.random().toString(36).substring(2, 8).toUpperCase();
+            
+            // Kodowanie imion, aby mogły być częścią linku (usuwa spacje i znaki specjalne)
+            const encodedNames = encodeURIComponent(names);
+
+            // Tworzenie dynamicznego linku
+            // window.location.href pobiera obecny adres i podmienia końcówkę na panel.html + parametry
+            let currentPath = window.location.href;
+            currentPath = currentPath.substring(0, currentPath.lastIndexOf("/")); 
+            const finalURL = currentPath + "/panel.html?id=" + randomID + "&names=" + encodedNames;
+
+            // Wyświetlanie linku
+            const resultBox = document.getElementById('resultBox');
+            const linkElement = document.getElementById('generatedLink');
+            
+            linkElement.href = finalURL;
+            linkElement.innerText = finalURL;
+            resultBox.style.display = "block";
+        }
+    </script>
+</body>
+</html>

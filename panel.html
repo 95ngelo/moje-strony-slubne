@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaproszenie na Ślub</title>
+    <style>
+        body { font-family: 'Georgia', serif; background-color: #faf8f5; color: #4a4a4a; text-align: center; margin: 0; padding: 0; }
+        .hero { background: #d4af37; color: white; padding: 100px 20px; }
+        h1 { font-size: 3.5rem; margin: 0; font-style: italic; }
+        .content { padding: 50px 20px; max-width: 800px; margin: 0 auto; }
+        .id-badge { display: inline-block; background: #eee; padding: 5px 15px; border-radius: 20px; font-family: monospace; color: #888; font-size: 0.9rem; margin-top: 20px;}
+    </style>
+</head>
+<body>
+
+    <div class="hero">
+        <p>Pobieramy się!</p>
+        <h1 id="displayNames">Ładowanie imion...</h1>
+    </div>
+
+    <div class="content">
+        <h2>Szczegóły Ceremonii</h2>
+        <p>Cieszymy się, że będziesz z nami w tym wyjątkowym dniu.</p>
+        <p><strong>Miejsce:</strong> Kościół św. Anny, Warszawa</p>
+        <p><strong>Godzina:</strong> 15:00</p>
+        
+        <div class="id-badge">
+            Identyfikator tej strony: <span id="displayId">Brak ID</span>
+        </div>
+    </div>
+
+    <script>
+        // Ten kod sprawdza pasek adresu (URL) i szuka wygenerowanych przez administratora parametrów
+        const urlParams = new URLSearchParams(window.location.search);
+        
+        // Pobieranie imion z linku (lub domyślnych, jeśli ktoś wszedł bez linku)
+        const namesFromLink = urlParams.get('names');
+        const idFromLink = urlParams.get('id');
+
+        // Ustawianie tekstu na stronie
+        if (namesFromLink) {
+            document.getElementById('displayNames').innerText = namesFromLink;
+        } else {
+            document.getElementById('displayNames').innerText = "Witaj na naszej stronie!";
+        }
+
+        if (idFromLink) {
+            document.getElementById('displayId').innerText = "#" + idFromLink;
+        }
+    </script>
+
+</body>
+</html>
