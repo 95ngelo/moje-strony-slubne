@@ -5,16 +5,20 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Zapraszamy na nasz ślub!</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #d4af37; /* Złoty */
-            --bg-color: #fbfaf8;
+            --primary-color: #cba052; /* Złoty MojeWesele */
+            --dark-color: #2c3e50;
+            --bg-color: #fdfbf7;
             --text-color: #4a4a4a;
             --font-main: 'Lato', sans-serif;
             --font-accent: 'Playfair Display', serif;
         }
 
         * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
 
         body {
             font-family: var(--font-main);
@@ -36,60 +40,77 @@
             color: #fff;
         }
 
-        .hero h1 { font-size: 5rem; font-style: italic; margin: 10px 0; }
+        .hero h1 { font-size: 4.5rem; font-style: italic; margin: 10px 0; }
         .hero p.date { font-size: 1.5rem; letter-spacing: 3px; text-transform: uppercase; }
 
         /* --- Odliczanie --- */
-        .countdown-wrapper { display: flex; gap: 20px; justify-content: center; margin-top: 40px; }
-        .time-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); padding: 15px 20px; border-radius: 8px; min-width: 90px; border: 1px solid rgba(255,255,255,0.3); }
-        .time-box span { display: block; font-size: 2.5rem; font-family: var(--font-accent); }
+        .countdown-wrapper { display: flex; gap: 15px; justify-content: center; margin-top: 40px; flex-wrap: wrap; }
+        .time-box { background: rgba(255, 255, 255, 0.15); backdrop-filter: blur(5px); padding: 15px; border-radius: 8px; min-width: 80px; border: 1px solid rgba(255,255,255,0.3); }
+        .time-box span { display: block; font-size: 2rem; font-family: var(--font-accent); }
+        .time-box div { font-size: 0.7rem; text-transform: uppercase; }
 
         /* --- Sekcje --- */
-        section { padding: 100px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
+        section { padding: 80px 20px; max-width: 1000px; margin: 0 auto; text-align: center; }
         .section-title { font-size: 2.5rem; margin-bottom: 20px; color: var(--primary-color); }
 
-        .details-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; }
-        .detail-card { background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
+        .detail-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
 
-        /* --- Sekcja Zdjęć (TWÓJ FORMULARZ GOOGLE) --- */
-        .upload-section {
+        /* --- MODUŁ PRZESYŁANIA ZDJĘĆ (Własny, bez logowania) --- */
+        .upload-container {
             background: white;
-            border-radius: 15px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            padding: 20px;
-            margin-top: 40px;
-            overflow: hidden;
+            border: 2px dashed var(--primary-color);
+            border-radius: 20px;
+            padding: 40px;
+            margin-top: 30px;
+            transition: all 0.3s ease;
         }
         
-        .upload-section iframe {
-            width: 100%;
+        #file-label { cursor: pointer; display: block; }
+        #file-label i { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 15px; }
+        #file-input { display: none; }
+
+        .btn-upload {
+            background: var(--dark-color);
+            color: white;
             border: none;
-            min-height: 800px; /* Wysokość dopasowana do Twojego formularza */
+            padding: 15px 40px;
+            border-radius: 30px;
+            font-weight: 700;
+            cursor: pointer;
+            margin-top: 20px;
+            transition: 0.3s;
+            display: inline-block;
         }
+        .btn-upload:hover { background: var(--primary-color); transform: translateY(-2px); }
+        .btn-upload:disabled { background: #ccc; cursor: not-allowed; }
 
-        .rsvp-form { max-width: 600px; margin: 0 auto; background: #fff; padding: 40px; border-radius: 10px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
+        #status { margin-top: 20px; font-weight: 600; font-size: 0.9rem; }
+
+        /* --- RSVP --- */
+        .rsvp-form { max-width: 600px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
         .form-group { margin-bottom: 20px; }
-        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 5px; }
-        .submit-btn { width: 100%; background-color: var(--primary-color); color: #fff; border: none; padding: 15px; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; }
+        .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
+        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
 
-        footer { background-color: #222; color: #fff; text-align: center; padding: 40px 20px; }
+        footer { background-color: #222; color: #fff; text-align: center; padding: 60px 20px; }
 
-        @media (max-width: 768px) { .hero h1 { font-size: 3.5rem; } .details-grid { grid-template-columns: 1fr; } }
+        @media (max-width: 768px) { .hero h1 { font-size: 3rem; } }
     </style>
 </head>
 <body>
 
     <header class="hero">
         <div class="hero-content">
-            <p style="font-size: 1.2rem; letter-spacing: 2px;">Pobieramy się!</p>
+            <p style="text-transform: uppercase; letter-spacing: 4px; font-size: 0.9rem;">Zaproszenie na ślub</p>
             <h1 id="wedding-title">Anna & Piotr</h1>
             <p class="date">25 Sierpnia 2026</p>
             
             <div class="countdown-wrapper" id="countdown">
                 <div class="time-box"><span id="days">00</span><div>Dni</div></div>
-                <div class="time-box"><span id="hours">00</span><div>Godz</div></div>
-                <div class="time-box"><span id="minutes">00</span><div>Min</div></div>
-                <div class="time-box"><span id="seconds">00</span><div>Sek</div></div>
+                <div class="time-box"><span id="hours">00</span><div>Godziny</div></div>
+                <div class="time-box"><span id="minutes">00</span><div>Minuty</div></div>
+                <div class="time-box"><span id="seconds">00</span><div>Sekundy</div></div>
             </div>
         </div>
     </header>
@@ -98,71 +119,157 @@
         <h2 class="section-title">Kiedy & Gdzie</h2>
         <div class="details-grid">
             <div class="detail-card">
+                <i class="fa-solid fa-church" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 15px;"></i>
                 <h3>Ceremonia</h3>
-                <p><strong>15:00</strong> - Kościół św. Anny, Warszawa</p>
+                <p><strong>15:00</strong></p>
+                <p>Kościół św. Anny</p>
+                <p>Krakowskie Przedmieście 68, Warszawa</p>
             </div>
             <div class="detail-card">
+                <i class="fa-solid fa-champagne-glasses" style="color: var(--primary-color); font-size: 1.5rem; margin-bottom: 15px;"></i>
                 <h3>Wesele</h3>
-                <p><strong>17:00</strong> - Sala "Złoty Sen", Warszawa</p>
+                <p><strong>17:00</strong></p>
+                <p>Sala Bankietowa "Złoty Sen"</p>
+                <p>ul. Wierzbowa 10, Warszawa</p>
             </div>
         </div>
     </section>
 
-  <section id="zdjecia" style="background-color: #fff;">
-        <h2 class="section-title">Wspólna Galeria</h2>
-        <p style="margin-bottom: 30px;">Zrobiłeś fajne zdjęcia lub filmy? Kliknij poniżej i prześlij je bezpośrednio do naszej prywatnej galerii!</p>
+    <section id="galeria" style="background-color: white;">
+        <h2 class="section-title">Wspólny Album</h2>
+        <p>Pomóżcie nam uwiecznić te chwile! Prześlijcie zdjęcia i filmy bezpośrednio do naszej galerii.</p>
         
-        <div class="upload-section" style="max-width: 800px; margin: 0 auto;">
-            <iframe src="https://driveuploader.com/upload/PIZaJ3ggMw/" width="100%" height="400" frameborder="0" style="border: 2px dashed #d4af37; border-radius: 15px; background: #fafafa;"></iframe>
+        <div class="upload-container">
+            <form id="photoForm">
+                <label id="file-label" for="file-input">
+                    <i class="fa-solid fa-cloud-arrow-up"></i>
+                    <h3 style="font-family: var(--font-main); font-weight: 700;">Wybierz pliki</h3>
+                    <p id="file-name" style="color: var(--gray); margin-top: 10px;">Zdjęcie lub film (max 50MB)</p>
+                </label>
+                <input type="file" id="file-input" accept="image/*,video/*">
+                
+                <button type="button" id="upload-btn" class="btn-upload" onclick="startUpload()">Wyślij do albumu</button>
+            </form>
+            <div id="status" style="display: none;"></div>
         </div>
     </section>
 
     <section id="rsvp" style="background-color: #f4f1eb;">
         <h2 class="section-title">RSVP</h2>
+        <p>Prosimy o potwierdzenie obecności do 1 sierpnia 2026 r.</p>
+        
         <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Dziękujemy za potwierdzenie!');">
             <div class="form-group">
                 <label>Imię i Nazwisko</label>
-                <input type="text" required>
+                <input type="text" placeholder="Wpisz swoje dane" required>
             </div>
             <div class="form-group">
                 <label>Czy będziesz z nami?</label>
                 <select required>
+                    <option value="" disabled selected>Wybierz...</option>
                     <option value="yes">Tak, przybędę</option>
-                    <option value="no">Niestety nie</option>
+                    <option value="no">Niestety nie mogę</option>
                 </select>
             </div>
-            <button type="submit" class="submit-btn">Potwierdź</button>
+            <button type="submit" class="submit-btn" style="background-color: var(--primary-color); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer;">WYŚLIJ POTWIERDZENIE</button>
         </form>
     </section>
 
     <footer>
         <h2 id="footer-names">Anna & Piotr</h2>
-        <p>Nie możemy się doczekać!</p>
+        <p>Do zobaczenia!</p>
     </footer>
 
     <script>
-        // Pobieranie imion z adresu URL
-        const params = new URLSearchParams(window.location.search);
-        const names = params.get('names');
+        // --- 1. DYNAMICZNE IMIONA ---
+        const urlParams = new URLSearchParams(window.location.search);
+        const names = urlParams.get('names');
         if(names) {
             document.getElementById('wedding-title').innerText = names;
             document.getElementById('footer-names').innerText = names;
+            document.title = `Wesele - ${names}`;
         }
 
-        // Odliczanie
+        // --- 2. OBSŁUGA PLIKÓW (Bez logowania) ---
+        const fileInput = document.getElementById('file-input');
+        const fileNameDisplay = document.getElementById('file-name');
+        const statusDiv = document.getElementById('status');
+        const uploadBtn = document.getElementById('upload-btn');
+
+        fileInput.addEventListener('change', function() {
+            if(this.files.length > 0) {
+                fileNameDisplay.innerText = "Wybrano: " + this.files[0].name;
+                fileNameDisplay.style.color = "#2c3e50";
+            }
+        });
+
+        function startUpload() {
+            const file = fileInput.files[0];
+            if (!file) {
+                alert("Najpierw wybierz plik!");
+                return;
+            }
+
+            // Limit wielkości dla skryptu Google (ok 50MB)
+            if (file.size > 50 * 1024 * 1024) {
+                alert("Plik jest zbyt duży. Maksymalny rozmiar to 50MB.");
+                return;
+            }
+
+            // TWÓJ LINK DO SKRYPTU
+            const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw05XURbnJULawqeLpQbvs4Bu4JpK2Fg-JlWDYyATPXT2dmUUgf7e-Gc_CJRsVe8dZEtA/exec";
+
+            statusDiv.style.display = "block";
+            statusDiv.style.color = "#d4af37";
+            statusText("Wysyłanie... Proszę nie zamykać strony.");
+            uploadBtn.disabled = true;
+
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const base64Data = e.target.result.split(',')[1];
+                
+                // Przygotowanie danych do wysyłki
+                const formData = new URLSearchParams();
+                formData.append('fileData', base64Data);
+                formData.append('mimeType', file.type);
+                formData.append('fileName', file.name);
+
+                fetch(SCRIPT_URL, {
+                    method: 'POST',
+                    body: formData,
+                    mode: 'no-cors' // Google Apps Script wymaga no-cors przy POST z innych domen
+                })
+                .then(() => {
+                    // Ponieważ no-cors nie zwraca treści odpowiedzi, zakładamy sukces po braku błędu sieci
+                    statusDiv.style.color = "green";
+                    statusText("Udało się! Plik został wysłany.");
+                    fileInput.value = "";
+                    fileNameDisplay.innerText = "Możesz wybrać kolejny plik";
+                    uploadBtn.disabled = false;
+                })
+                .catch(err => {
+                    console.error(err);
+                    statusDiv.style.color = "red";
+                    statusText("Błąd wysyłania. Spróbuj ponownie.");
+                    uploadBtn.disabled = false;
+                });
+            };
+            reader.readAsDataURL(file);
+        }
+
+        function statusText(txt) {
+            statusDiv.innerText = txt;
+        }
+
+        // --- 3. ODLICZANIE ---
         const weddingDate = new Date(2026, 7, 25, 15, 0, 0).getTime();
         setInterval(function() {
             const now = new Date().getTime();
-            const distance = weddingDate - now;
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-            document.getElementById("days").innerText = days;
-            document.getElementById("hours").innerText = hours;
-            document.getElementById("minutes").innerText = minutes;
-            document.getElementById("seconds").innerText = seconds;
+            const dist = weddingDate - now;
+            document.getElementById("days").innerText = Math.floor(dist / (1000 * 60 * 60 * 24));
+            document.getElementById("hours").innerText = Math.floor((dist % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            document.getElementById("minutes").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
+            document.getElementById("seconds").innerText = Math.floor((dist % (1000 * 60)) / 1000);
         }, 1000);
     </script>
 </body>
