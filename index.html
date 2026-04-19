@@ -3,41 +3,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MojeWesele - Profesjonalne Strony Ślubne</title>
+    <title>XXX - Profesjonalne Strony Ślubne</title>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root { --primary: #cba052; --dark: #2c3e50; --light: #fdfbf7; --gray: #6c757d; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
+        
+        /* Płynne przewijanie do sekcji */
+        html { scroll-behavior: smooth; }
+        
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; overflow-x: hidden; }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
         a { text-decoration: none; transition: 0.3s; }
         
-        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: white; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
+        /* --- Nawigacja --- */
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
         .logo span { color: var(--primary); font-style: italic; }
         .nav-links { display: flex; gap: 30px; align-items: center; }
         .nav-links a { color: var(--dark); font-weight: 600; font-size: 0.9rem; }
-        .btn-nav { background: var(--primary); color: white !important; padding: 10px 25px; border-radius: 30px; }
+        .nav-links a:hover { color: var(--primary); }
+        .btn-nav { background: var(--primary); color: white !important; padding: 10px 25px; border-radius: 30px; box-shadow: 0 4px 15px rgba(203, 160, 82, 0.3); }
+        .btn-nav:hover { background: #b38a42; transform: translateY(-2px); }
 
-        .hero { display: flex; align-items: center; padding: 150px 5% 100px; background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%); min-height: 80vh; }
+        /* --- Sekcja Główna (Hero) --- */
+        .hero { display: flex; align-items: center; justify-content: space-between; padding: 150px 5% 100px; background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%); min-height: 100vh; gap: 50px; }
         .hero-text { flex: 1; max-width: 600px; }
-        .hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; }
-        .btn-large { display: inline-block; background: var(--primary); color: white; padding: 15px 40px; border-radius: 30px; font-weight: 600; margin-top: 20px; box-shadow: 0 10px 20px rgba(203,160,82,0.3); }
-
-        .features { padding: 100px 5%; text-align: center; background: white; }
-        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 50px auto; }
-        .feature-card { padding: 40px; border-radius: 15px; background: var(--light); border: 1px solid #f0e6d2; }
-        .icon { font-size: 2rem; color: var(--primary); margin-bottom: 20px; }
-
-        .contact-section { padding: 100px 5%; text-align: center; }
-        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
-        .form-group { text-align: left; margin-bottom: 20px; }
-        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
-        .btn-submit { width: 100%; background: var(--dark); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; line-height: 1.2; color: var(--dark); }
+        .hero-text p { font-size: 1.1rem; color: var(--gray); margin-bottom: 30px; }
+        .btn-large { display: inline-block; background: var(--primary); color: white; padding: 15px 40px; border-radius: 30px; font-weight: 600; box-shadow: 0 10px 20px rgba(203,160,82,0.3); transition: transform 0.3s, box-shadow 0.3s; }
+        .btn-large:hover { transform: translateY(-3px); box-shadow: 0 15px 25px rgba(203,160,82,0.4); background: #b38a42;}
         
-        footer { padding: 40px; text-align: center; border-top: 1px solid #eee; font-size: 0.9rem; color: var(--gray); }
-        @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .nav-links { display: none; } }
+        .hero-image { flex: 1; text-align: center; position: relative; }
+        .hero-image img { max-width: 100%; border-radius: 20px; box-shadow: 0 20px 50px rgba(0,0,0,0.15); border: 8px solid white; animation: float 6s ease-in-out infinite; }
+        
+        /* Animacja lewitacji obrazka startowego */
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        /* --- Sekcja Możliwości --- */
+        .features { padding: 100px 5%; text-align: center; background: white; }
+        .section-subtitle { max-width: 700px; margin: 15px auto 60px auto; color: var(--gray); font-size: 1.1rem; }
+        
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; max-width: 1200px; margin: 0 auto; }
+        
+        /* Nowoczesne Karty z Obrazkami i Płynnymi Przejściami */
+        .feature-card { background: #fff; border-radius: 20px; text-align: left; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.06); transition: all 0.4s ease; border: 1px solid #f0e6d2; display: flex; flex-direction: column; }
+        .feature-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(203,160,82,0.15); }
+        
+        .card-img-wrapper { height: 220px; overflow: hidden; position: relative; }
+        .card-img-wrapper img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+        /* Powiększenie obrazka po najechaniu na kartę */
+        .feature-card:hover .card-img-wrapper img { transform: scale(1.1); }
+        
+        /* Okrągła ikona na granicy zdjęcia i tekstu */
+        .icon-badge { position: absolute; bottom: -25px; right: 30px; width: 60px; height: 60px; background: var(--primary); color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; border: 5px solid #fff; box-shadow: 0 5px 15px rgba(0,0,0,0.1); z-index: 2; transition: background 0.3s; }
+        .feature-card:hover .icon-badge { background: var(--dark); }
+
+        .card-content { padding: 40px 30px 30px; flex: 1; }
+        .card-content h3 { margin-bottom: 15px; font-family: 'Montserrat', sans-serif; font-weight: 700; font-size: 1.2rem; color: var(--dark); }
+        .card-content p { font-size: 0.95rem; color: var(--gray); }
+
+        /* --- Sekcja Kontaktowa --- */
+        .contact-section { padding: 100px 5%; text-align: center; background: var(--light); }
+        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 50px; border-radius: 20px; box-shadow: 0 10px 40px rgba(0,0,0,0.05); border: 1px solid #f0e6d2; }
+        .form-group { text-align: left; margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 15px; border: 1px solid #ddd; border-radius: 10px; font-family: inherit; font-size: 1rem; transition: border-color 0.3s, box-shadow 0.3s; }
+        input:focus, textarea:focus { border-color: var(--primary); outline: none; box-shadow: 0 0 0 3px rgba(203, 160, 82, 0.1); }
+        .btn-submit { width: 100%; background: var(--dark); color: white; border: none; padding: 15px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1.05rem; transition: all 0.3s; }
+        .btn-submit:hover { background: var(--primary); transform: translateY(-2px); }
+        
+        /* --- Stopka --- */
+        footer { padding: 30px; text-align: center; background: white; font-size: 0.9rem; color: var(--gray); }
+        
+        /* --- Responsywność --- */
+        @media (max-width: 900px) { 
+            .hero { flex-direction: column; text-align: center; padding-top: 130px; } 
+            .nav-links { display: none; } 
+            .hero-text { margin-bottom: 40px; }
+        }
     </style>
 </head>
 <body>
@@ -53,36 +101,120 @@
     <header class="hero">
         <div class="hero-text">
             <h1>Wasza historia w pięknym wydaniu</h1>
-            <p>Profesjonalny kreator stron ślubnych. RSVP, galeria zdjęć i mapa dojazdu w jednym miejscu.</p>
+            <p>Profesjonalny kreator stron ślubnych. Zaproszenia online, galeria zdjęć, RSVP i wszystkie detale Waszego wielkiego dnia zgromadzone w jednym, eleganckim miejscu.</p>
             <a href="admin.html" class="btn-large">Zacznij teraz</a>
+        </div>
+        <div class="hero-image">
+            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Elegancka strona ślubna podgląd">
         </div>
     </header>
 
     <section id="mozliwosci" class="features">
-        <h2 style="font-size: 2.5rem;">Wszystko, czego potrzebujecie</h2>
+        <h2 style="font-size: 2.8rem; color: var(--dark);">Jedna strona, mnóstwo korzyści</h2>
+        <p class="section-subtitle">Zobacz, jak innowacyjne rozwiązania odmienią organizację Waszego ślubu. Zdejmujemy stres z Waszych barków, gwarantując zachwyt gości.</p>
+        
         <div class="features-grid">
+            
             <div class="feature-card">
-                <i class="fa-solid fa-heart icon"></i>
-                <h3>Personalizacja</h3>
-                <p>Wygeneruj unikalną stronę dla każdej Pary Młodej.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Detale ślubne">
+                    <div class="icon-badge"><i class="fa-solid fa-wand-magic-sparkles"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Unikalna Personalizacja</h3>
+                    <p>Każda miłość jest inna, dlatego dbamy, by Wasza strona odzwierciedlała charakter uroczystości. Projektujemy z myślą o pełnym dopasowaniu do motywu przewodniego i Waszego stylu.</p>
+                </div>
             </div>
+
             <div class="feature-card">
-                <i class="fa-solid fa-camera icon"></i>
-                <h3>Galeria Zdjęć</h3>
-                <p>Goście mogą przesyłać zdjęcia prosto na Twój Dysk Google.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1598520868212-04ce19cb6b6b?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Zaproszenie">
+                    <div class="icon-badge"><i class="fa-solid fa-envelope-circle-check"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Interaktywne RSVP</h3>
+                    <p>Oszczędźcie czas na telefony. Goście potwierdzają przybycie online, a Wy otrzymujecie natychmiastowe powiadomienia e-mail z precyzyjną informacją o ich preferencjach i noclegach.</p>
+                </div>
             </div>
+
             <div class="feature-card">
-                <i class="fa-solid fa-check icon"></i>
-                <h3>System RSVP</h3>
-                <p>Szybkie potwierdzenia obecności online.</p>
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1522673607200-164d1b6ce486?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Zakochana Para">
+                    <div class="icon-badge"><i class="fa-solid fa-clock-rotate-left"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Spokój i Wygoda</h3>
+                    <p>Koniec z odpowiadaniem na te same pytania. Harmonogram, dojazd i noclegi znajdują się pod jednym adresem, dając poczucie komfortu zarówno Wam, jak i Waszym bliskim.</p>
+                </div>
             </div>
+
+            <div class="feature-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Strona na telefonie">
+                    <div class="icon-badge"><i class="fa-solid fa-qrcode"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Własna Domena i Kod QR</h3>
+                    <p>Prestiżowy, indywidualny adres (np. www.ania-piotr.pl) nada stronie wyjątkowego wymiaru, a wygenerowany kod QR idealnie uzupełni Wasze papierowe zaproszenia.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Mapa podróży">
+                    <div class="icon-badge"><i class="fa-solid fa-map-location-dot"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Nawigacja i Mapy</h3>
+                    <p>Zintegrowane mapy Google poprowadzą gości prosto pod drzwi kościoła, urzędu i na salę bankietową. Umożliwiamy płynne wyznaczenie trasy jednym kliknięciem na telefonie.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1542887800-faca0261c9e1?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Księga Gości">
+                    <div class="icon-badge"><i class="fa-solid fa-book-open"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Kompleksowy Poradnik Gościa</h3>
+                    <p>Doskonała komunikacja to podstawa. Delikatnie i przejrzyście informujemy o kwestiach związanych z prezentami, transportem czy obecnością najmłodszych, eliminując wszelkie niejasności.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Sala weselna">
+                    <div class="icon-badge"><i class="fa-solid fa-utensils"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Menu i Plan Stołów</h3>
+                    <p>Zadbajcie o to, by zaproszeni z wyprzedzeniem poznali harmonogram wieczoru, serwowane przysmaki oraz bez stresu odnaleźli swoje miejsce przy odpowiednim stole.</p>
+                </div>
+            </div>
+
+            <div class="feature-card">
+                <div class="card-img-wrapper">
+                    <img src="https://images.unsplash.com/photo-1520390138845-fd2d229dd553?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80" alt="Aparat na weselu">
+                    <div class="icon-badge"><i class="fa-solid fa-images"></i></div>
+                </div>
+                <div class="card-content">
+                    <h3>Cyfrowy Album Wspomnień</h3>
+                    <p>Tworzymy przestrzeń, w której każdy może udostępnić swoje ujęcia z imprezy. Wspólna galeria online pozwoli zachować na zawsze najpiękniejsze chwile z perspektywy Waszych przyjaciół.</p>
+                </div>
+            </div>
+
         </div>
     </section>
 
     <section id="kontakt" class="contact-section">
         <div class="contact-container">
-            <h2 style="margin-bottom: 20px;">Kontakt z administratorem</h2>
+            <h2 style="margin-bottom: 10px; color: var(--dark);">Kontakt z administratorem</h2>
+            <p style="color: var(--gray); margin-bottom: 30px;">Masz pytania dotyczące konfiguracji? Napisz do nas!</p>
+            
             <form action="https://formsubmit.co/bkgeloo@gmail.com" method="POST">
+                <input type="hidden" name="_subject" value="Nowa wiadomość ze strony MojeWesele">
+                <input type="hidden" name="_captcha" value="false">
+                
                 <div class="form-group">
                     <input type="text" name="name" placeholder="Twoje Imię" required>
                 </div>
@@ -90,7 +222,7 @@
                     <input type="email" name="email" placeholder="Twój E-mail" required>
                 </div>
                 <div class="form-group">
-                    <textarea name="message" rows="4" placeholder="W czym możemy pomóc?" required></textarea>
+                    <textarea name="message" rows="5" placeholder="W czym możemy pomóc?" required></textarea>
                 </div>
                 <button type="submit" class="btn-submit">Wyślij wiadomość</button>
             </form>
