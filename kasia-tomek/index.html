@@ -196,20 +196,16 @@
         <h2 class="section-title">RSVP</h2>
         <p>Prosimy o potwierdzenie obecności do 1 sierpnia 2026 r.</p>
         
-        <form class="rsvp-form" action="https://formsubmit.co/bkgeloo@gmail.com" method="POST">
-            
-            <input type="hidden" name="_subject" value="Nowe potwierdzenie obecności (RSVP)!">
-            <input type="hidden" name="_captcha" value="false">
-            <input type="hidden" name="_template" value="table">
+        <form id="rsvpForm" class="rsvp-form" onsubmit="sendRSVP(event)">
             
             <div class="form-group">
                 <label>Imię i Nazwisko gości</label>
-                <input type="text" name="Imię_i_Nazwisko" placeholder="Wpisz swoje dane" required>
+                <input type="text" id="rsvpName" placeholder="Wpisz swoje dane" required>
             </div>
             
             <div class="form-group">
                 <label>Czy będziesz z nami?</label>
-                <select name="Obecność" required>
+                <select id="rsvpAttendance" required>
                     <option value="" disabled selected>Wybierz...</option>
                     <option value="Tak, przybędę">Tak, z radością przybędę</option>
                     <option value="Niestety nie mogę">Niestety, nie mogę być z Wami</option>
@@ -218,10 +214,12 @@
 
             <div class="form-group">
                 <label>Dieta specjalna / Alergie (Opcjonalnie)</label>
-                <textarea name="Dieta" rows="3" placeholder="Wpisz, jeśli potrzebujesz specjalnego menu..."></textarea>
+                <textarea id="rsvpDiet" rows="3" placeholder="Wpisz, jeśli potrzebujesz specjalnego menu..."></textarea>
             </div>
 
-            <button type="submit" class="submit-btn" style="background-color: var(--primary-color); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer;">WYŚLIJ POTWIERDZENIE</button>
+            <button type="submit" id="rsvpBtn" class="submit-btn" style="background-color: var(--primary-color); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer; transition: 0.3s;">WYŚLIJ POTWIERDZENIE</button>
+            
+            <div id="rsvpStatus" style="display: none; margin-top: 20px; font-weight: bold; text-align: center;"></div>
         </form>
     </section>
 
@@ -259,6 +257,7 @@
                 return;
             }
 
+            // LINK DO SKRYPTU OD ZDJĘĆ
             const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw05XURbnJULawqeLpQbvs4Bu4JpK2Fg-JlWDYyATPXT2dmUUgf7e-Gc_CJRsVe8dZEtA/exec";
 
             statusDiv.style.display = "block";
@@ -300,6 +299,58 @@
             document.getElementById("minutes").innerText = Math.floor((dist % (1000 * 60 * 60)) / (1000 * 60));
             document.getElementById("seconds").innerText = Math.floor((dist % (1000 * 60)) / 1000);
         }, 1000);
+
+        // --- 4. OBSŁUGA RSVP W TLE (MAILE) ---
+        function sendRSVP(event) {
+            event.preventDefault(); // Zatrzymuje przeładowanie strony
+
+            const btn = document.getElementById('rsvpBtn');
+            const statusRSVP = document.getElementById('rsvpStatus');
+            
+            // Pobranie wpisanych danych z formularza
+            const name = document.getElementById('rsvpName').value;
+            const attendance = document.getElementById('rsvpAttendance').value;
+            const diet = document.getElementById('rsvpDiet').value;
+
+            // Zaktualizowany link do Skryptu E-mailowego
+            const RSVP_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwI60uTKwKpGObbyVJeB_qRRIgnTeoVGRzivE5pIL9hAW4MdoEJ1BobYaWJSMh2pYxCdA/exec";
+
+            // Zmiana przycisku podczas wysyłania
+            btn.innerText = "WYSYŁANIE...";
+            btn.disabled = true;
+            statusRSVP.style.display = "none";
+
+            // Paczka danych
+            const formData = new URLSearchParams();
+            formData.append('Imię_i_Nazwisko', name);
+            formData.append('Obecność', attendance);
+            formData.append('Dieta', diet);
+
+            // Wysłanie danych po cichu do Skryptu Google
+            fetch(RSVP_SCRIPT_URL, {
+                method: 'POST',
+                body: formData,
+                mode: 'no-cors'
+            })
+            .then(() => {
+                // Sukces
+                btn.style.display = "none";
+                statusRSVP.style.display = "block";
+                statusRSVP.style.color = "green";
+                statusRSVP.innerText = "Dziękujemy! Twoja odpowiedź została wysłana.";
+                
+                // Opcjonalne wyczyszczenie formularza po wysłaniu
+                document.getElementById('rsvpForm').reset();
+            })
+            .catch(error => {
+                // Błąd
+                btn.innerText = "WYŚLIJ POTWIERDZENIE";
+                btn.disabled = false;
+                statusRSVP.style.display = "block";
+                statusRSVP.style.color = "red";
+                statusRSVP.innerText = "Wystąpił błąd. Spróbuj ponownie później.";
+            });
+        }
     </script>
 </body>
 </html>
