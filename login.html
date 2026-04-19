@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="pl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zaloguj się - MojeWesele</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Playfair+Display:wght@600&display=swap" rel="stylesheet">
+    <style>
+        :root { --primary: #cba052; --dark: #2c3e50; --light: #fdfbf7; }
+        body { 
+            font-family: 'Montserrat', sans-serif; 
+            background: var(--light); 
+            margin: 0; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .login-card { 
+            background: white; 
+            padding: 50px; 
+            border-radius: 20px; 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05); 
+            width: 100%; 
+            max-width: 400px; 
+            text-align: center; 
+        }
+        h1 { font-family: 'Playfair Display', serif; color: var(--dark); margin-bottom: 10px; }
+        p { color: #6c757d; font-size: 0.9rem; margin-bottom: 30px; }
+        input { 
+            width: 100%; 
+            padding: 15px; 
+            margin-bottom: 20px; 
+            border: 1px solid #ddd; 
+            border-radius: 10px; 
+            box-sizing: border-box; 
+            font-size: 1rem;
+            font-family: 'Montserrat', sans-serif;
+        }
+        .btn-login { 
+            background: var(--dark); 
+            color: white; 
+            border: none; 
+            padding: 15px 30px; 
+            border-radius: 30px; 
+            cursor: pointer; 
+            font-weight: 700; 
+            width: 100%; 
+            font-size: 1rem; 
+            transition: background 0.3s;
+        }
+        .btn-login:hover { background: var(--primary); }
+        .error { color: #e74c3c; font-size: 0.9rem; margin-top: 15px; display: none; font-weight: 600; }
+    </style>
+</head>
+<body>
+
+    <div class="login-card">
+        <h1>Strefa Gościa</h1>
+        <p>Wpisz hasło z zaproszenia, aby przejść do strony ślubnej.</p>
+        
+        <input type="password" id="passwordInput" placeholder="Twoje hasło...">
+        <button class="btn-login" onclick="sprawdzHaslo()">Wejdź</button>
+        
+        <div id="errorMessage" class="error">Niepoprawne hasło. Spróbuj ponownie!</div>
+    </div>
+
+    <script>
+        // --- BAZA HASEŁ I LINKÓW ---
+        // Tutaj wpisujesz hasła po lewej stronie, a po prawej link, do którego mają prowadzić.
+        const bazaDanych = {
+            "AniaPiotr2026": "panel.html?names=Anna%20%26%20Piotr&id=XYZ12",
+            "KasiaTomek123": "panel.html?names=Kasia%20i%20Tomek&id=ABC99",
+            "MagdaOlekVIP": "panel.html?names=Magdalena%20i%20Aleksander&id=VIP01"
+        };
+
+        function sprawdzHaslo() {
+            // Pobieramy to, co wpisał użytkownik
+            const wpisaneHaslo = document.getElementById('passwordInput').value;
+            const errorBox = document.getElementById('errorMessage');
+
+            // Sprawdzamy, czy takie hasło istnieje w naszej "bazie"
+            if (bazaDanych[wpisaneHaslo]) {
+                // Jeśli istnieje, przekierowujemy na przypisany link
+                window.location.href = bazaDanych[wpisaneHaslo];
+            } else {
+                // Jeśli nie istnieje, pokazujemy błąd
+                errorBox.style.display = "block";
+            }
+        }
+
+        // Umożliwia logowanie po wciśnięciu klawisza "Enter"
+        document.getElementById("passwordInput").addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+                sprawdzHaslo();
+            }
+        });
+    </script>
+
+</body>
+</html>
