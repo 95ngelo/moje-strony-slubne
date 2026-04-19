@@ -67,29 +67,25 @@
 
     <script>
         // --- BAZA HASEŁ I LINKÓW ---
-        // Tutaj wpisujesz hasła po lewej stronie, a po prawej link, do którego mają prowadzić.
+        // WAŻNE: Po prawej stronie wpisujesz "nazwa-folderu/index.html"
         const bazaDanych = {
-            "AniaPiotr2026": "panel.html?names=Anna%20%26%20Piotr&id=XYZ12",
-            "KasiaTomek123": "panel.html?names=Kasia%20i%20Tomek&id=ABC99",
-            "MagdaOlekVIP": "panel.html?names=Magdalena%20i%20Aleksander&id=VIP01"
+            "AniaPiotr2026": "ania-piotr/index.html",
+            "KasiaTomek123": "kasia-tomek/index.html",
+            "MagdaOlekVIP": "magda-olek/index.html"
         };
 
         function sprawdzHaslo() {
-            // Pobieramy to, co wpisał użytkownik
             const wpisaneHaslo = document.getElementById('passwordInput').value;
             const errorBox = document.getElementById('errorMessage');
 
-            // Sprawdzamy, czy takie hasło istnieje w naszej "bazie"
             if (bazaDanych[wpisaneHaslo]) {
-                // Jeśli istnieje, przekierowujemy na przypisany link
+                // Jeśli hasło istnieje, przekieruj do odpowiedniego folderu
                 window.location.href = bazaDanych[wpisaneHaslo];
             } else {
-                // Jeśli nie istnieje, pokazujemy błąd
                 errorBox.style.display = "block";
             }
         }
 
-        // Umożliwia logowanie po wciśnięciu klawisza "Enter"
         document.getElementById("passwordInput").addEventListener("keypress", function(event) {
             if (event.key === "Enter") {
                 event.preventDefault();
