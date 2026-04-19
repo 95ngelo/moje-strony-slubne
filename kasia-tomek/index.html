@@ -56,42 +56,30 @@
         .details-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; margin-top: 40px; }
         .detail-card { background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #eee; }
 
-        /* --- MODUŁ PRZESYŁANIA ZDJĘĆ (Własny, bez logowania) --- */
-        .upload-container {
-            background: white;
-            border: 2px dashed var(--primary-color);
-            border-radius: 20px;
-            padding: 40px;
-            margin-top: 30px;
-            transition: all 0.3s ease;
-        }
-        
+        /* --- HARMONOGRAM (Oś Czasu) --- */
+        .timeline { max-width: 800px; margin: 40px auto; text-align: left; position: relative; }
+        .timeline::before { content: ''; position: absolute; left: 20px; top: 0; height: 100%; width: 2px; background: var(--primary-color); }
+        .timeline-item { margin-bottom: 30px; padding-left: 60px; position: relative; }
+        .timeline-icon { position: absolute; left: 0; top: 0; width: 42px; height: 42px; background: #fff; border: 2px solid var(--primary-color); border-radius: 50%; display: flex; align-items: center; justify-content: center; color: var(--primary-color); font-size: 1.2rem; z-index: 1; }
+        .timeline-content { background: #fff; padding: 20px; border-radius: 10px; box-shadow: 0 5px 15px rgba(0,0,0,0.05); border: 1px solid #eee; }
+        .timeline-content h3 { font-size: 1.3rem; color: var(--dark-color); margin-bottom: 5px; font-family: var(--font-main); font-weight: 700; }
+        .timeline-content span.time { font-weight: 700; color: var(--primary-color); margin-right: 10px; }
+
+        /* --- MODUŁ PRZESYŁANIA ZDJĘĆ --- */
+        .upload-container { background: white; border: 2px dashed var(--primary-color); border-radius: 20px; padding: 40px; margin-top: 30px; transition: all 0.3s ease; }
         #file-label { cursor: pointer; display: block; }
         #file-label i { font-size: 3.5rem; color: var(--primary-color); margin-bottom: 15px; }
         #file-input { display: none; }
-
-        .btn-upload {
-            background: var(--dark-color);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            border-radius: 30px;
-            font-weight: 700;
-            cursor: pointer;
-            margin-top: 20px;
-            transition: 0.3s;
-            display: inline-block;
-        }
+        .btn-upload { background: var(--dark-color); color: white; border: none; padding: 15px 40px; border-radius: 30px; font-weight: 700; cursor: pointer; margin-top: 20px; transition: 0.3s; display: inline-block; }
         .btn-upload:hover { background: var(--primary-color); transform: translateY(-2px); }
         .btn-upload:disabled { background: #ccc; cursor: not-allowed; }
-
         #status { margin-top: 20px; font-weight: 600; font-size: 0.9rem; }
 
         /* --- RSVP --- */
         .rsvp-form { max-width: 600px; margin: 40px auto; background: #fff; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); text-align: left; }
         .form-group { margin-bottom: 20px; }
         .form-group label { display: block; margin-bottom: 8px; font-weight: 700; font-size: 0.9rem; }
-        .form-group input, .form-group select { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        .form-group input, .form-group select, .form-group textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
 
         footer { background-color: #222; color: #fff; text-align: center; padding: 60px 20px; }
 
@@ -135,6 +123,56 @@
         </div>
     </section>
 
+    <section id="harmonogram">
+        <h2 class="section-title">Harmonogram Dnia</h2>
+        <p>Sprawdźcie, co zaplanowaliśmy na ten wyjątkowy dzień.</p>
+
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-church"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">15:00</span> Ceremonia Ślubna</h3>
+                    <p>Uroczysta msza święta i złożenie przysięgi małżeńskiej.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-champagne-glasses"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">17:00</span> Powitanie i Toast</h3>
+                    <p>Przyjazd na salę weselną, przywitanie chlebem i solą oraz pierwszy toast.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-utensils"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">17:30</span> Uroczysty Obiad</h3>
+                    <p>Wspólny gorący posiłek, po którym zapraszamy do zabawy.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-music"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">19:00</span> Pierwszy Taniec</h3>
+                    <p>Oficjalne rozpoczęcie zabawy na parkiecie.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-cake-candles"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">22:00</span> Tort Weselny</h3>
+                    <p>Słodka niespodzianka i chwila na zdjęcia z gośćmi.</p>
+                </div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-icon"><i class="fa-solid fa-moon"></i></div>
+                <div class="timeline-content">
+                    <h3><span class="time">00:00</span> Oczepiny</h3>
+                    <p>Tradycyjne zabawy weselne i symboliczne rzucanie bukietem.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <section id="galeria" style="background-color: white;">
         <h2 class="section-title">Wspólny Album</h2>
         <p>Pomóżcie nam uwiecznić te chwile! Prześlijcie zdjęcia i filmy bezpośrednio do naszej galerii.</p>
@@ -158,19 +196,31 @@
         <h2 class="section-title">RSVP</h2>
         <p>Prosimy o potwierdzenie obecności do 1 sierpnia 2026 r.</p>
         
-        <form class="rsvp-form" onsubmit="event.preventDefault(); alert('Dziękujemy za potwierdzenie!');">
+        <form class="rsvp-form" action="https://formsubmit.co/bkgeloo@gmail.com" method="POST">
+            
+            <input type="hidden" name="_subject" value="Nowe potwierdzenie obecności (RSVP)!">
+            <input type="hidden" name="_captcha" value="false">
+            <input type="hidden" name="_template" value="table">
+            
             <div class="form-group">
-                <label>Imię i Nazwisko</label>
-                <input type="text" placeholder="Wpisz swoje dane" required>
+                <label>Imię i Nazwisko gości</label>
+                <input type="text" name="Imię_i_Nazwisko" placeholder="Wpisz swoje dane" required>
             </div>
+            
             <div class="form-group">
                 <label>Czy będziesz z nami?</label>
-                <select required>
+                <select name="Obecność" required>
                     <option value="" disabled selected>Wybierz...</option>
-                    <option value="yes">Tak, przybędę</option>
-                    <option value="no">Niestety nie mogę</option>
+                    <option value="Tak, przybędę">Tak, z radością przybędę</option>
+                    <option value="Niestety nie mogę">Niestety, nie mogę być z Wami</option>
                 </select>
             </div>
+
+            <div class="form-group">
+                <label>Dieta specjalna / Alergie (Opcjonalnie)</label>
+                <textarea name="Dieta" rows="3" placeholder="Wpisz, jeśli potrzebujesz specjalnego menu..."></textarea>
+            </div>
+
             <button type="submit" class="submit-btn" style="background-color: var(--primary-color); color: white; border: none; padding: 15px; width: 100%; border-radius: 8px; font-weight: 700; cursor: pointer;">WYŚLIJ POTWIERDZENIE</button>
         </form>
     </section>
@@ -190,7 +240,7 @@
             document.title = `Wesele - ${names}`;
         }
 
-        // --- 2. OBSŁUGA PLIKÓW (Bez logowania) ---
+        // --- 2. OBSŁUGA PLIKÓW ---
         const fileInput = document.getElementById('file-input');
         const fileNameDisplay = document.getElementById('file-name');
         const statusDiv = document.getElementById('status');
@@ -199,7 +249,6 @@
         fileInput.addEventListener('change', function() {
             if(this.files.length > 0) {
                 fileNameDisplay.innerText = "Wybrano: " + this.files[0].name;
-                fileNameDisplay.style.color = "#2c3e50";
             }
         });
 
@@ -210,55 +259,35 @@
                 return;
             }
 
-            // Limit wielkości dla skryptu Google (ok 50MB)
-            if (file.size > 50 * 1024 * 1024) {
-                alert("Plik jest zbyt duży. Maksymalny rozmiar to 50MB.");
-                return;
-            }
-
-            // TWÓJ LINK DO SKRYPTU
             const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw05XURbnJULawqeLpQbvs4Bu4JpK2Fg-JlWDYyATPXT2dmUUgf7e-Gc_CJRsVe8dZEtA/exec";
 
             statusDiv.style.display = "block";
             statusDiv.style.color = "#d4af37";
-            statusText("Wysyłanie... Proszę nie zamykać strony.");
+            statusDiv.innerText = "Wysyłanie... Proszę nie zamykać strony.";
             uploadBtn.disabled = true;
 
             const reader = new FileReader();
             reader.onload = function(e) {
                 const base64Data = e.target.result.split(',')[1];
-                
-                // Przygotowanie danych do wysyłki
                 const formData = new URLSearchParams();
                 formData.append('fileData', base64Data);
                 formData.append('mimeType', file.type);
                 formData.append('fileName', file.name);
 
-                fetch(SCRIPT_URL, {
-                    method: 'POST',
-                    body: formData,
-                    mode: 'no-cors' // Google Apps Script wymaga no-cors przy POST z innych domen
-                })
+                fetch(SCRIPT_URL, { method: 'POST', body: formData, mode: 'no-cors' })
                 .then(() => {
-                    // Ponieważ no-cors nie zwraca treści odpowiedzi, zakładamy sukces po braku błędu sieci
                     statusDiv.style.color = "green";
-                    statusText("Udało się! Plik został wysłany.");
+                    statusDiv.innerText = "Udało się! Plik został wysłany.";
                     fileInput.value = "";
-                    fileNameDisplay.innerText = "Możesz wybrać kolejny plik";
                     uploadBtn.disabled = false;
                 })
                 .catch(err => {
-                    console.error(err);
                     statusDiv.style.color = "red";
-                    statusText("Błąd wysyłania. Spróbuj ponownie.");
+                    statusDiv.innerText = "Błąd wysyłania.";
                     uploadBtn.disabled = false;
                 });
             };
             reader.readAsDataURL(file);
-        }
-
-        function statusText(txt) {
-            statusDiv.innerText = txt;
         }
 
         // --- 3. ODLICZANIE ---
