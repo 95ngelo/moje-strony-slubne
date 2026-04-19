@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Anna & Piotr - Zapraszamy na nasz ślub!</title>
+    <title>Zapraszamy na nasz ślub!</title>
     <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
         /* Zmienne kolorystyczne i bazowe ustawienia */
@@ -171,6 +171,22 @@
 
         .submit-btn:hover { background-color: #b5952f; }
 
+        /* --- Sekcja Przesyłania Zdjęć (iframe Google) --- */
+        .upload-section {
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            padding: 20px;
+            margin-top: 40px;
+        }
+        
+        .upload-section iframe {
+            width: 100%;
+            border: none;
+            border-radius: 10px;
+            min-height: 600px;
+        }
+
         /* --- Stopka --- */
         footer {
             background-color: #222;
@@ -196,7 +212,9 @@
     <header class="hero">
         <div class="hero-content">
             <p style="font-size: 1.2rem; letter-spacing: 2px;">Pobieramy się!</p>
-            <h1>Anna & Piotr</h1>
+            
+            <h1 id="wedding-title">Anna & Piotr</h1>
+            
             <p class="date">25 Sierpnia 2026</p>
             
             <div class="countdown-wrapper" id="countdown">
@@ -240,6 +258,15 @@
         </div>
     </section>
 
+    <section id="zdjecia" style="background-color: #fff;">
+        <h2 class="section-title">Wspólna Galeria</h2>
+        <p class="section-subtitle">Zrobiłeś piękne zdjęcia lub filmy? Prześlij je do naszej wspólnej galerii!</p>
+        
+        <div class="upload-section">
+            <iframe src="https://docs.google.com/forms/d/e/TWOJ_ID_FORMULARZA/viewform?embedded=true">Ładowanie formularza...</iframe>
+        </div>
+    </section>
+
     <section id="rsvp" style="background-color: #f4f1eb;">
         <h2 class="section-title">RSVP</h2>
         <p class="section-subtitle">Prosimy o potwierdzenie przybycia do 1 sierpnia 2026 r.</p>
@@ -267,10 +294,22 @@
 
     <footer>
         <h2>Nie możemy się doczekać!</h2>
-        <p>Anna & Piotr</p>
+        <p id="footer-names">Anna & Piotr</p>
     </footer>
 
     <script>
+        // --- 1. DYNAMICZNE IMIONA Z LINKU ---
+        const params = new URLSearchParams(window.location.search);
+        const names = params.get('names');
+        
+        if(names) {
+            // Zamienia domyślne "Anna & Piotr" na imiona z wygenerowanego linku
+            document.getElementById('wedding-title').innerText = names;
+            document.getElementById('footer-names').innerText = names;
+            document.title = `Wesele - ${names}`;
+        }
+
+        // --- 2. ODLICZANIE CZASU ---
         // Ustaw datę swojego ślubu (Rok, Miesiąc, Dzień, Godzina, Minuta)
         // UWAGA: W JavaScript miesiące liczymy od 0 (0 = Styczeń, 7 = Sierpień)
         const weddingDate = new Date(2026, 7, 25, 15, 0, 0).getTime();

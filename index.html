@@ -4,293 +4,99 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MojeWesele - Profesjonalne Strony Ślubne</title>
-    
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
     <style>
-        /* --- Ustawienia Globalne --- */
-        :root {
-            --primary: #cba052; /* Elegancki złoty */
-            --primary-hover: #b38a42;
-            --dark: #2c3e50;
-            --light: #fdfbf7;
-            --gray: #6c757d;
-        }
-
+        :root { --primary: #cba052; --dark: #2c3e50; --light: #fdfbf7; --gray: #6c757d; }
         * { margin: 0; padding: 0; box-sizing: border-box; }
-
-        body {
-            font-family: 'Montserrat', sans-serif;
-            background-color: var(--light);
-            color: var(--dark);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
+        body { font-family: 'Montserrat', sans-serif; background-color: var(--light); color: var(--dark); line-height: 1.6; }
         h1, h2, h3 { font-family: 'Playfair Display', serif; }
+        a { text-decoration: none; transition: 0.3s; }
         
-        a { text-decoration: none; }
-
-        /* --- Nawigacja --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 5%;
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
-
+        nav { display: flex; justify-content: space-between; align-items: center; padding: 20px 5%; background: white; position: fixed; width: 100%; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.05); }
         .logo { font-size: 1.5rem; font-weight: 700; color: var(--dark); }
-        .logo span { color: var(--primary); font-family: 'Playfair Display', serif; font-style: italic; }
+        .logo span { color: var(--primary); font-style: italic; }
+        .nav-links { display: flex; gap: 30px; align-items: center; }
+        .nav-links a { color: var(--dark); font-weight: 600; font-size: 0.9rem; }
+        .btn-nav { background: var(--primary); color: white !important; padding: 10px 25px; border-radius: 30px; }
 
-        .nav-links { display: flex; gap: 30px; }
-        .nav-links a { color: var(--dark); font-weight: 600; font-size: 0.9rem; transition: color 0.3s; }
-        .nav-links a:hover { color: var(--primary); }
-
-        .btn-nav {
-            background-color: var(--primary);
-            color: white !important;
-            padding: 10px 25px;
-            border-radius: 30px;
-            box-shadow: 0 4px 15px rgba(203, 160, 82, 0.3);
-        }
-        .btn-nav:hover { background-color: var(--primary-hover); transform: translateY(-2px); }
-
-        /* --- Sekcja Hero --- */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 150px 5% 100px;
-            min-height: 100vh;
-            background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%);
-        }
-
+        .hero { display: flex; align-items: center; padding: 150px 5% 100px; background: linear-gradient(135deg, #fdfbf7 0%, #f4eee1 100%); min-height: 80vh; }
         .hero-text { flex: 1; max-width: 600px; }
+        .hero-text h1 { font-size: 3.5rem; margin-bottom: 20px; }
+        .btn-large { display: inline-block; background: var(--primary); color: white; padding: 15px 40px; border-radius: 30px; font-weight: 600; margin-top: 20px; box-shadow: 0 10px 20px rgba(203,160,82,0.3); }
+
+        .features { padding: 100px 5%; text-align: center; background: white; }
+        .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 1200px; margin: 50px auto; }
+        .feature-card { padding: 40px; border-radius: 15px; background: var(--light); border: 1px solid #f0e6d2; }
+        .icon { font-size: 2rem; color: var(--primary); margin-bottom: 20px; }
+
+        .contact-section { padding: 100px 5%; text-align: center; }
+        .contact-container { max-width: 600px; margin: 0 auto; background: white; padding: 40px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .form-group { text-align: left; margin-bottom: 20px; }
+        input, textarea { width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 8px; font-family: inherit; }
+        .btn-submit { width: 100%; background: var(--dark); color: white; border: none; padding: 15px; border-radius: 8px; cursor: pointer; font-weight: 600; }
         
-        .hero-text h1 {
-            font-size: 3.5rem;
-            line-height: 1.2;
-            margin-bottom: 20px;
-            color: var(--dark);
-        }
-
-        .hero-text p {
-            font-size: 1.1rem;
-            color: var(--gray);
-            margin-bottom: 40px;
-        }
-
-        .btn-large {
-            display: inline-block;
-            background-color: var(--primary);
-            color: white;
-            padding: 15px 40px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 30px;
-            box-shadow: 0 10px 30px rgba(203, 160, 82, 0.4);
-            transition: all 0.3s;
-        }
-
-        .btn-large:hover { background-color: var(--primary-hover); box-shadow: 0 5px 15px rgba(203, 160, 82, 0.4); transform: translateY(-3px); }
-
-        .hero-image {
-            flex: 1;
-            text-align: right;
-            position: relative;
-        }
-
-        .hero-image img {
-            max-width: 90%;
-            border-radius: 20px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.15);
-            /* Prosty efekt dla obrazka zastępczego */
-            border: 10px solid white;
-        }
-
-        /* --- Sekcja Funkcji (Możliwości) --- */
-        .features { padding: 100px 5%; background: white; text-align: center; }
-        
-        .section-title { font-size: 2.5rem; margin-bottom: 15px; }
-        .section-subtitle { color: var(--gray); margin-bottom: 60px; max-width: 600px; margin-left: auto; margin-right: auto; }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .feature-card {
-            padding: 40px 30px;
-            border-radius: 15px;
-            background: var(--light);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid #f0e6d2;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 40px rgba(0,0,0,0.08);
-            background: white;
-        }
-
-        .icon-wrapper {
-            width: 70px;
-            height: 70px;
-            background: #f8f1e3;
-            color: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.8rem;
-            margin: 0 auto 20px;
-        }
-
-        .feature-card h3 { font-size: 1.3rem; margin-bottom: 15px; font-family: 'Montserrat', sans-serif; font-weight: 700; }
-        .feature-card p { color: var(--gray); font-size: 0.95rem; }
-
-        /* --- Jak to działa --- */
-        .how-it-works { padding: 100px 5%; background: var(--dark); color: white; text-align: center; }
-        .how-it-works .section-title { color: white; }
-        .how-it-works .section-subtitle { color: #a0aec0; }
-        
-        .steps { display: flex; justify-content: center; gap: 50px; flex-wrap: wrap; max-width: 1000px; margin: 0 auto; }
-        .step { flex: 1; min-width: 250px; }
-        .step-num { 
-            font-size: 4rem; 
-            font-family: 'Playfair Display', serif; 
-            color: var(--primary); 
-            opacity: 0.8; 
-            margin-bottom: 10px;
-        }
-        .step h3 { font-family: 'Montserrat', sans-serif; margin-bottom: 15px; font-weight: 600; }
-        .step p { color: #cbd5e1; font-size: 0.9rem; }
-
-        /* --- Stopka --- */
-        footer { padding: 40px 5%; text-align: center; background: white; border-top: 1px solid #eee; color: var(--gray); }
-        footer p { font-size: 0.9rem; }
-
-        /* --- RWD (Telefony) --- */
-        @media (max-width: 900px) {
-            .hero { flex-direction: column; text-align: center; padding-top: 120px; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .hero-image { margin-top: 50px; }
-            .nav-links { display: none; /* Ukrywamy linki na małych ekranach dla uproszczenia */ }
-        }
+        footer { padding: 40px; text-align: center; border-top: 1px solid #eee; font-size: 0.9rem; color: var(--gray); }
+        @media (max-width: 768px) { .hero { flex-direction: column; text-align: center; } .nav-links { display: none; } }
     </style>
 </head>
 <body>
-
     <nav>
         <div class="logo">Moje<span>Wesele</span></div>
         <div class="nav-links">
             <a href="#mozliwosci">Możliwości</a>
-            <a href="#jak-to-dziala">Jak to działa?</a>
-            <a href="admin.html" class="btn-nav">Zaloguj / Stwórz</a>
+            <a href="#kontakt">Kontakt</a>
+            <a href="admin.html" class="btn-nav">Stwórz stronę</a>
         </div>
     </nav>
 
     <header class="hero">
         <div class="hero-text">
-            <h1>Wasza wymarzona strona ślubna w kilka chwil</h1>
-            <p>Zapomnij o papierowych zaproszeniach i ciągłym dzwonieniu. Zbierz RSVP, udostępnij mapy dojazdu i stwórz wspólną galerię zdjęć w jednym, eleganckim miejscu.</p>
-            <a href="admin.html" class="btn-large">Zacznij za darmo</a>
-        </div>
-        <div class="hero-image">
-            <img src="https://images.unsplash.com/photo-1511285560929-80b456fea0bc?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Podgląd strony ślubnej">
+            <h1>Wasza historia w pięknym wydaniu</h1>
+            <p>Profesjonalny kreator stron ślubnych. RSVP, galeria zdjęć i mapa dojazdu w jednym miejscu.</p>
+            <a href="admin.html" class="btn-large">Zacznij teraz</a>
         </div>
     </header>
 
     <section id="mozliwosci" class="features">
-        <h2 class="section-title">Wszystko, czego potrzebujecie</h2>
-        <p class="section-subtitle">Stworzyliśmy narzędzie, które ułatwia organizację i zachwyca Waszych gości pięknym wyglądem.</p>
-        
+        <h2 style="font-size: 2.5rem;">Wszystko, czego potrzebujecie</h2>
         <div class="features-grid">
             <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-envelope-open-text"></i></div>
-                <h3>Elektroniczne RSVP</h3>
-                <p>Odbieraj potwierdzenia przybycia od gości prosto na stronie. Automatyczne listy gości i informacje o dietach w jednym miejscu.</p>
+                <i class="fa-solid fa-heart icon"></i>
+                <h3>Personalizacja</h3>
+                <p>Wygeneruj unikalną stronę dla każdej Pary Młodej.</p>
             </div>
-            
             <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-map-location-dot"></i></div>
-                <h3>Lokalizacja i Mapy</h3>
-                <p>Udostępnij dokładne adresy ceremonii i wesela wraz z interaktywnymi mapami Google, aby nikt nie zabłądził.</p>
+                <i class="fa-solid fa-camera icon"></i>
+                <h3>Galeria Zdjęć</h3>
+                <p>Goście mogą przesyłać zdjęcia prosto na Twój Dysk Google.</p>
             </div>
-            
             <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-camera-retro"></i></div>
-                <h3>Wspólna Galeria Zdjęć</h3>
-                <p>Pozwól gościom przesyłać własne zdjęcia z imprezy bezpośrednio na Twój Dysk Google. Zbudujcie razem najpiękniejszy album.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-hourglass-half"></i></div>
-                <h3>Odliczanie Czasu</h3>
-                <p>Elegancki zegar odliczający sekundy do momentu, aż powiecie sobie "Tak". Buduje napięcie i ekscytację u gości.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-bed"></i></div>
-                <h3>Noclegi i Dojazd</h3>
-                <p>Zapewnij przyjezdnym pełną informację: polecane hotele, transport, parkingi i rozkład jazdy autobusów weselnych.</p>
-            </div>
-
-            <div class="feature-card">
-                <div class="icon-wrapper"><i class="fa-solid fa-mobile-screen"></i></div>
-                <h3>Idealne na Telefony</h3>
-                <p>Strona automatycznie dopasowuje się do każdego ekranu. Wygląda perfekcyjnie na iPhone'ach, Androidach i komputerach.</p>
+                <i class="fa-solid fa-check icon"></i>
+                <h3>System RSVP</h3>
+                <p>Szybkie potwierdzenia obecności online.</p>
             </div>
         </div>
     </section>
 
-    <section id="jak-to-dziala" class="how-it-works">
-        <h2 class="section-title">Jak to działa?</h2>
-        <p class="section-subtitle">Zrobienie własnej strony jest prostsze, niż myślisz.</p>
-        
-        <div class="steps">
-            <div class="step">
-                <div class="step-num">01</div>
-                <h3>Wypełnij formularz</h3>
-                <p>W panelu wpiszcie Wasze imiona, datę, oraz najważniejsze informacje dotyczące ceremonii i wesela.</p>
-            </div>
-            <div class="step">
-                <div class="step-num">02</div>
-                <h3>Wygeneruj link</h3>
-                <p>System automatycznie utworzy unikalny, przypisany tylko do Was link (np. mojewesele.online/kasia-tomek).</p>
-            </div>
-            <div class="step">
-                <div class="step-num">03</div>
-                <h3>Wyślij gościom</h3>
-                <p>Udostępnij link rodzinie i znajomym SMS-em, na Facebooku lub dołącz go do tradycyjnego zaproszenia.</p>
-            </div>
+    <section id="kontakt" class="contact-section">
+        <div class="contact-container">
+            <h2 style="margin-bottom: 20px;">Kontakt z administratorem</h2>
+            <form action="https://formsubmit.co/TWOJ_EMAIL@DOMENA.PL" method="POST">
+                <div class="form-group">
+                    <input type="text" name="name" placeholder="Twoje Imię" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" name="email" placeholder="Twój E-mail" required>
+                </div>
+                <div class="form-group">
+                    <textarea name="message" rows="4" placeholder="W czym możemy pomóc?" required></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Wyślij wiadomość</button>
+            </form>
         </div>
     </section>
 
-    <footer>
-        <p>&copy; 2026 MojeWesele. Projekt stworzony z myślą o najpiękniejszych chwilach.</p>
-    </footer>
-
-    <script>
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-    </script>
+    <footer>&copy; 2026 MojeWesele.online - Wszystkie prawa zastrzeżone.</footer>
 </body>
 </html>
